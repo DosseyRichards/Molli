@@ -86,7 +86,8 @@ app.post('/montage/new',upload.array('videos'), userController.postNewMontage);
 app.post('/api/login', passport.authenticate('local', {session:false}), config.signUserWithToken);
 app.post('/api/montage/new',upload.array('videos'), apiController.postNewMontage);
 app.get('/api/montage/recent', apiController.getRecentMontage);
-app.get('api/montage/watch/:this_montage', apiController.getMontage);
+app.get('/api/montage/popular', apiController.getPopularMontage);
+app.get('/api/montage/watch/:this_montage', apiController.getMontage);
 
 ///...........Test Route........../
 app.post('/api/test', apiController.verifyAndSupplyToken, function(req, res, next){
