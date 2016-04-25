@@ -61,10 +61,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(function(req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
-    next();
+app.use(function (req, res, next) {
+  // You could also wrap this in the `if (req.method === 'OPTIONS')` as in the cors-options-node.js example
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  // res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE, CONNECT');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  res.setHeader('Access-Control-Max-Age', '86400'); // 24 hours
+  next();
 });
 app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
@@ -86,10 +91,12 @@ app.post('/montage/new',upload.array('videos'), userController.postNewMontage);
 app.post('/api/login', passport.authenticate('local', {session:false}), config.signUserWithToken);
 app.post('/api/montage/new',upload.array('videos'), apiController.postNewMontage);
 app.get('/api/montage/recent', apiController.getRecentMontage);
-app.get('/api/montage/recent/page/:current_page', apiController.getRecentMontageOaginate);
+app.get('/api/montage/recent/page/:current_page', apiController.getRecentMontage);
 app.get('/api/montage/popular', apiController.getPopularMontage);
 app.get('/api/montage/watch/:this_montage', apiController.getMontage);
-///...........Test Route........../
+
+//////////////////////////////...........Test Route........../////////////////////////////////
+
 app.post('/api/test', apiController.verifyAndSupplyToken, function(req, res, next){
   res.json(req.decoded._doc);
 });
