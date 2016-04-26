@@ -88,7 +88,7 @@ app.post('/montage/new',upload.array('videos'), userController.postNewMontage);
 ////////////////////////////////Routes For API 
 /*app.get('/api/', apiController.getHome);
 */////authentication with token
-app.post('/api/login', passport.authenticate('local', {session:false}), config.signUserWithToken);
+app.post('/api/login', upload.array('jijijiggugdsodsoxk'), config.signUserWithToken);
 app.post('/api/montage/new',upload.array('videos'), apiController.postNewMontage);
 app.get('/api/montage/recent', apiController.getRecentMontage);
 app.get('/api/montage/recent/page/:current_page', apiController.getRecentMontage);
