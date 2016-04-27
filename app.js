@@ -75,6 +75,9 @@ app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveU
 app.use(passport.initialize());
 app.use(passport.session());
 
+
+
+
 ///////Main Routes For Web Application
 app.get('/', homeController.getHome);
 app.post('/login', passport.authenticate('local'),function(req, res, next){res.json(req.user)});
@@ -97,7 +100,7 @@ app.get('/api/montage/watch/:this_montage', apiController.getMontage);
 
 //////////////////////////////...........Test Route........../////////////////////////////////
 
-app.post('/api/test', apiController.verifyAndSupplyToken, function(req, res, next){
+app.get('/api/account_details', apiController.verifyAndSupplyToken, function(req, res, next){
   res.json(req.decoded._doc);
 });
 
