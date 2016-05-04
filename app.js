@@ -53,6 +53,8 @@ passport.deserializeUser(function(user, done) {
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+///serve videos 
+app.use('/videos', express.static(__dirname + '/uploads'));
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -79,7 +81,7 @@ app.use(passport.session());
 
 
 ///////Main Routes For Web Application
-app.get('/', homeController.getHome);
+app.get('/', function(req, res, next){ res.send('API for Molli');  });
 app.post('/login', passport.authenticate('local'),function(req, res, next){res.json(req.user)});
 app.get('/login', homeController.getLogin);
 app.get('/dashboard', userController.getDashboard);
@@ -91,10 +93,12 @@ app.post('/montage/new',upload.array('videos'), userController.postNewMontage);
 ////////////////////////////////Routes For API 
 /*app.get('/api/', apiController.getHome);
 */////authentication with token
+app.get('/api/', function(req, res, next){ res.send('API for Molli');  });
 app.post('/api/login', upload.array('jijijiggugdsodsoxk'), config.signUserWithToken);
-app.post('/api/montage/new',upload.array('videos'), apiController.postNewMontage);
+app.post('/api/sign_up', upload.array('jijijiggugdsodsoxk'),apiController.registerUser);
+app.post('/api/montage/new', upload.array('videos') , apiController.postNewMontage);
 app.get('/api/montage/recent', apiController.getRecentMontage);
-app.get('/api/montage/recent/page/:current_page', apiController.getRecentMontage);
+app.get('/api/montage/recent/page/:page', apiController.getMoreRecentMontage);
 app.get('/api/montage/popular', apiController.getPopularMontage);
 app.get('/api/montage/watch/:this_montage', apiController.getMontage);
 
