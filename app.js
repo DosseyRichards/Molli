@@ -96,11 +96,12 @@ app.post('/montage/new',upload.array('videos'), userController.postNewMontage);
 app.get('/api/', function(req, res, next){ res.send('API for Molli');  });
 app.post('/api/login', upload.array('jijijiggugdsodsoxk'), config.signUserWithToken);
 app.post('/api/sign_up', upload.array('jijijiggugdsodsoxk'),apiController.registerUser);
-app.post('/api/montage/new', upload.array('videos') , apiController.postNewMontage);
+app.post('/api/montage/new', upload.array('videos'), apiController.verifyAndSupplyTokenForMontage, apiController.postNewMontage);
 app.get('/api/montage/recent', apiController.getRecentMontage);
 app.get('/api/montage/recent/page/:page', apiController.getMoreRecentMontage);
 app.get('/api/montage/popular', apiController.getPopularMontage);
 app.get('/api/montage/watch/:this_montage', apiController.getMontage);
+app.get('/api/montage/my_montages', apiController.verifyAndSupplyToken, apiController.getUserMontages);
 
 //////////////////////////////...........Test Route........../////////////////////////////////
 
