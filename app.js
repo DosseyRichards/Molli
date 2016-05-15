@@ -18,6 +18,7 @@ var config = require('config');
 var app = express();
 var models  = require('models');
 var config = require('config');
+var compression = require('compression');
 
 
 
@@ -53,6 +54,7 @@ passport.deserializeUser(function(user, done) {
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+app.use(compression());
 ///serve videos 
 app.use('/videos', express.static(__dirname + '/uploads'));
 
@@ -63,6 +65,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'static_home_page')));
+
 app.use(function (req, res, next) {
   // You could also wrap this in the `if (req.method === 'OPTIONS')` as in the cors-options-node.js example
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -81,7 +85,7 @@ app.use(passport.session());
 
 
 ///////Main Routes For Web Application
-app.get('/', function(req, res, next){ res.send('API for Molli');  });
+app.get('/', function(req, res, next){ res.sendFile(__dirname + '/static_home_page/index.html');  });
 app.post('/login', passport.authenticate('local'),function(req, res, next){res.json(req.user)});
 app.get('/login', homeController.getLogin);
 app.get('/dashboard', userController.getDashboard);
@@ -102,6 +106,8 @@ app.get('/api/montage/recent/page/:page', apiController.getMoreRecentMontage);
 app.get('/api/montage/popular', apiController.getPopularMontage);
 app.get('/api/montage/watch/:this_montage', apiController.getMontage);
 app.get('/api/montage/my_montages/page/:page', apiController.verifyAndSupplyToken, apiController.getMoreUserMontage);
+
+
 
 //////////////////////////////...........Test Route........../////////////////////////////////
 
