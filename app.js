@@ -104,6 +104,7 @@ app.post('/api/montage/new', upload.array('videos'), apiController.verifyAndSupp
 app.get('/api/montage/recent', apiController.getRecentMontage);
 app.get('/api/montage/recent/page/:page', apiController.getMoreRecentMontage);
 app.get('/api/montage/popular', apiController.getPopularMontage);
+app.get('/api/montage/popular/page/:page', apiController.getMorePopularMontage);
 app.get('/api/montage/watch/:this_montage', apiController.getMontage);
 app.get('/api/montage/my_montages/page/:page', apiController.verifyAndSupplyToken, apiController.getMoreUserMontage);
 
