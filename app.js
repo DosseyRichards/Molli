@@ -61,8 +61,8 @@ app.use('/videos', express.static(__dirname + '/uploads'));
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json({limit: "500mb"}));
+app.use(bodyParser.urlencoded({ limit: "500mb", extended: true, parameterLimit:500000}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'static_home_page')));
