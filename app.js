@@ -48,9 +48,6 @@ passport.deserializeUser(function(user, done) {
 
 
 
-
-
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -92,7 +89,7 @@ app.get('/dashboard', userController.getDashboard);
 app.get('/montage/recent', userController.getRecentMontage);
 app.get('/montage/new', userController.getNewMontage);
 app.post('/montage/new',upload.array('videos'), userController.postNewMontage);
-
+app.get('/montage/watch/:this_montage', userController.getMontage);
 
 ////////////////////////////////Routes For API 
 /*app.get('/api/', apiController.getHome);
