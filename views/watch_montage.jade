@@ -2,18 +2,18 @@ extends layout
 block content
   script.
     $(document).ready(function(){
-    var videoPlayer= document.getElementById('video');
-    var montage = "#montage";
-        videoPlayer.src="http://Molli.tv/videos/" + montage.videos[0].video;
+        var videoPlayer= document.getElementById('video');
+        var montage = !{montage};
+        videoPlayer.src= "http://Molli.tv/videos/" + {montage.views};
         var i = 1;
         videoPlayer.addEventListener('ended', function(){
         if(i < montage.videos.length){
             this.pause();
-            this.src = "http://Molli.tv/videos/" + montage.videos[i].video;
+            this.src = "http://Molli.tv/montage.videos/" + montage.videos[i].video;
             i++;
           }
           else{
-            this.src = "http://Molli.tv/videos/" + montage.videos[0].video;
+            this.src = "http://Molli.tv/montage.videos/" + montage.videos[0].video;
             i = 1;
           }
 
