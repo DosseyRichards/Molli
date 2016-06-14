@@ -1,24 +1,35 @@
 extends layout
 block content
+  style.
+    body{
+      background-color:#556;
+      background-image: linear-gradient(30deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445),
+      linear-gradient(150deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445),
+      linear-gradient(30deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445),
+      linear-gradient(150deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445),
+      linear-gradient(60deg, #99a 25%, transparent 25.5%, transparent 75%, #99a 75%, #99a), 
+      linear-gradient(60deg, #99a 25%, transparent 25.5%, transparent 75%, #99a 75%, #99a);
+      background-size:80px 140px;
+      background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
+    }
   script.
     $(document).ready(function(){
         var videoPlayer= document.getElementById('video');
-        montage = JSON.parse(montage);
-
-        videoPlayer.src= "http://Molli.tv/videos/" + montage.views;
+        videoPlayer.src=  "http://Molli.tv/videos/#{montage.videos[0].video}";
         var i = 1;
+        var _videos = !{JSON.stringify(montage.videos)};
         videoPlayer.addEventListener('ended', function(){
-        if(i < montage.videos.length){
-            this.pause();
-            this.src = "http://Molli.tv/montage.videos/" + montage.videos;
-            i++;
-          }
-          else{
-            this.src = "http://Molli.tv/montage.videos/" + montage.videos;
-            i = 1;
-          }
+          if(i < #{montage.videos.length} ){
+              this.pause();
+              this.src = "http://Molli.tv/videos/" + _videos[i].video;
+              i++;
+            }
+            else{
+              this.src = "http://Molli.tv/videos/!{montage.videos[0].video}";
+              i = 1;
+            }
 
-            }, false);
+              }, false);
     });
     
   div(class="col-lg-3" style="padding-top:2%;")
@@ -26,5 +37,5 @@ block content
   div(class="col-lg-9")
   br
   br
-  div(class="col-lg-8 col-lg-offset-2")
-    video(style="height:50vh;width:50vw;top:25%")
+  div(class="col-lg-10 col-lg-offset-1 col-sm-12 col-xs-12")
+    video( id="video" autoplay style="height:100%;width:100%;padding-top:2%;")
