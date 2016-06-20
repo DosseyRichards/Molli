@@ -90,6 +90,7 @@ app.get('/montage/recent', userController.getRecentMontage);
 app.get('/montage/new', userController.getNewMontage);
 app.post('/montage/new',upload.array('videos'), userController.postNewMontage);
 app.get('/montage/watch/:this_montage', userController.getMontage);
+app.get('/terms_and_conditions', userController.terms_conditions);
 
 ////////////////////////////////Routes For API 
 /*app.get('/api/', apiController.getHome);
