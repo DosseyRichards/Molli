@@ -7,17 +7,17 @@ block content
   script.
     $(document).ready(function(){
         var videoPlayer= document.getElementById('video');
-        videoPlayer.src=  "http://localhost:3000/videos/#{montage.videos[0].video}";
+        videoPlayer.src=  "http://molli.tv/videos/#{montage.videos[0].video}";
         var i = 1;
         var _videos = !{JSON.stringify(montage.videos)};
         videoPlayer.addEventListener('ended', function(){
           if(i < #{montage.videos.length} ){
               this.pause();
-              this.src = "http://localhost:3000/videos/" + _videos[i].video;
+              this.src = "http://molli.tv/videos/" + _videos[i].video;
               i++;
             }
             else{
-              this.src = "http://localhost:3000/videos/!{montage.videos[0].video}";
+              this.src = "http://molli.tv/videos/!{montage.videos[0].video}";
               i = 1;
             }
 
