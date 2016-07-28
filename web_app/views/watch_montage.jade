@@ -14,6 +14,7 @@ block content
     script.
       $(document).ready(function(){
           var videoPlayer= document.getElementById('video');
+          video(id="video" autobuffer height="240" width="360")
           videoPlayer.src=  "http://molli.tv/videos/#{montage.videos[0].video}";
           var i = 1;
           var _videos = !{JSON.stringify(montage.videos)};
